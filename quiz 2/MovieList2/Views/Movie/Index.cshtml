@@ -1,0 +1,43 @@
+﻿@model System.Data.DataTable
+@{
+    ViewBag.Title = "Index";
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/User/Login");
+    }
+}
+
+
+<br />
+<div class="container row p-0 m-0">
+    <div class="col-6">
+        <h2 class="text-info">Movie List</h2>
+    </div>
+    <div class="col-3 offset-3">
+        <a href="@Url.Action("Create", "Movie")">Add Movie</a>
+    </div>
+    <div class="col-12 border p-3">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>Movie Name</th>
+                <th>Year</th>
+                <th>Director</th>
+                <th></th>
+            </tr>
+            @for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                <tr>
+                    <td>@Model.Rows[i][1]</td>
+                    <td>@Model.Rows[i][2]</td>
+                    <td>@Model.Rows[i][3]</td>
+                    <td>
+                        <a href="@Url.Action("Edit","Movie", new { @id=@Model.Rows[i][0] })">Edit</a>
+                        <a href="@Url.Action("Delete","Movie", new { @id=@Model.Rows[i][0] })">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+  </div>
+
+        
